@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osyuceba <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 17:28:14 by osyuceba          #+#    #+#             */
-/*   Updated: 2023/01/05 17:28:15 by osyuceba         ###   ########.fr       */
+/*   Created: 2023/01/12 11:16:01 by osyuceba          #+#    #+#             */
+/*   Updated: 2023/01/12 11:16:02 by osyuceba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_atoi(const char *str)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-    long long int   numb;
-    int sin;
+	size_t	i;
+	char	*sub;
+	size_t	start_copy;
 
-    numb = 0;
-    sin = 1;
-    while ()
+	start_copy = ((size_t)start);
+	if (s == 0)
+		return (0);
+	sub = malloc((len + 1) * sizeof (char));
+	if (sub == 0)
+		return (0);
+	i = 0;
+	while (i < len && start_copy < ft_strlen(s))
+	{
+		sub[i] = s[start_copy + i];
+		i++;
+	}
+	sub[i] = '\0';
+	return (sub);
 }
