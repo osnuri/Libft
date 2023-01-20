@@ -19,9 +19,9 @@ char	*ft_strrchr(const char *s, int c)
 	result = NULL;
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (unsigned char)c)
 		{
-			result = s;
+			result = (char *)s;
 		}
 		s++;
 	}
