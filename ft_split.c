@@ -12,58 +12,58 @@
 
 #include "libft.h"
 
-static int	word_counter(const char *s, char c)
+static int	ft_word_counter(char const *s, char c)
 {
 	int	i;
 
 	i = 0;
 	while (*s)
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s == '\0')
-			return (i);
-		while (*s != c && *s)
-			s++;
-		i++;
+		while (*s == c)
+			++s;
+		if (*s)
+			++i;
+		while (*s && *s != c)
+			++s;
 	}
 	return (i);
 }
 
-static int	char_counter(const char *s, char c)
+static void	ft_char_counter(char **str, char const *s, char c)
 {
-	int	i;
+	char		**str1;
+	const char	*s1;
 
-	i = 0;
-	while (*s && (*s != c))
+	str1 = str;
+	s1 = s;
+	while (*s1)
 	{
-		i++;
-		s++;
+		while (*s == c)
+			++s;
+		s1 = s;
+		while (*s1 && *s1 != c)
+			++s1;
+		if (*s1 == c || s1 > s)
+		{
+			*str1 = ft_substr(s, 0, s1 - s);
+			s = s1;
+			++str1;
+		}
 	}
-	return (i);
+	*str1 = NULL;
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**ret;
-	int		ret_index;
+	char	**newstr;
+	int		size;
 
 	if (!s)
-		return (0);
-	ret_index = 0;
-	ret = malloc(sizeof(char *) * word_counter(s, c) + 1);
-	if (!ret)
-		return (0);
-	while (*s)
-	{
-		while (*s == c && *s)
-			s++;
-		if (*s == '\0')
-			break ;
-		ret[ret_index] = ft_substr(s, 0, char_counter(s, c));
-		ret_index++;
-		s = s + char_counter(s, c);
-	}
-	ret[ret_index] = NULL;
-	return (ret);
+		return (NULL);
+	size = ft_word_counter(s, c);
+	newstr = (char **)malloc(sizeof(char *) *(size + 1));
+	if (!newstr)
+		return (NULL);
+	ft_char_counter(newstr, s, c);
+	return (newstr);
 }
